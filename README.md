@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Carousell Thrift Clone - Cross-Country Thrifting Marketplace 🇯🇵🇹🇭🇨🇳🇮🇩🇺🇸
 
-## Getting Started
+Marketplace jual beli pakaian thrift vintage lintas negara (Jepang, Thailand, China, Indonesia, dan USA) terinspirasi oleh [id.carousell.com](https://id.carousell.com/). Dibangun menggunakan **Next.js 16 App Router**, **TypeScript**, **Tailwind CSS v4**, dan **Prisma ORM**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ⚡ Fitur Utama
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Katalog Thrifting Lintas Negara**: Filter pakaian berdasarkan asal baleran impor (Jepang, Thailand, China, Indonesia, USA), kategori, dan kata kunci.
+- **Transparansi Ukuran & Minus**: Setiap listing wajib mencantumkan ukuran riil PxL (Panjang x Lebar cm), badge kondisi (*Brand New*, *Like New*, *Good*, *Flawed Vintage*), serta catatan minus/cacat.
+- **In-App Offer & WhatsApp Handshake (Aturan 8)**: Pembeli dapat mengajukan penawaran harga di aplikasi, membuka obrolan negosiasi otomatis, dan melanjutkan transaksi di luar aplikasi via WhatsApp resmi penjual atau COD langsung di lokasi (Zero Payment Gateway).
+- **Inventaris Penjual (`/my-listings`)**: Mengelola status barang secara cepat (`Tersedia`, `Dibooking`, `Terjual`) dan hapus listing dengan proteksi IDOR.
+- **Etalase Toko Penjual (`/seller/[username]`)**: Halaman toko dengan rekam jejak ulasan bintang dan daftar pakaian aktif.
+- **Autentikasi Aman**: JWT session dengan cookie HttpOnly, bcrypt password hashing, dan tombol 1-Click Demo Login untuk pengujian cepat.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔑 Akun Demo Pengujian (1-Klik di Halaman Login)
 
-## Learn More
+| Role | Email | Password | Kegunaan |
+|---|---|---|---|
+| **Penjual (Seller)** | `seller@thrift.com` | `password123` | Mengelola inventaris, pasang iklan, menerima tawaran |
+| **Pembeli (Buyer)** | `buyer@thrift.com` | `password123` | Menawar pakaian, melihat detail, negosiasi obrolan |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Cara Menjalankan Secara Lokal
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone repository dan install dependencies**:
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+2. **Setup Database SQLite & Seeding**:
+   ```bash
+   npx prisma db push
+   npx tsx prisma/seed.ts
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Jalankan Development Server**:
+   ```bash
+   npm run dev
+   ```
+   Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Uji Build Produksi**:
+   ```bash
+   npm run build
+   npm run start
+   ```
+
+---
+
+## 🚀 Panduan Deployment ke Vercel + Supabase
+
+1. Buat database PostgreSQL di [Supabase](https://supabase.com).
+2. Ubah `provider = "postgresql"` di `prisma/schema.prisma`.
+3. Atur Environment Variables di project Vercel:
+   - `DATABASE_URL`: URL koneksi PostgreSQL Supabase
+   - `JWT_SECRET`: Random string minimal 32 karakter
+   - `NEXT_PUBLIC_APP_URL`: URL domain Vercel Anda
+4. Deploy langsung via GitHub integration di Vercel.

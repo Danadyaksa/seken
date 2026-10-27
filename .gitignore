@@ -10,8 +10,11 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# testing & agent artifacts
 /coverage
+.playwright-mcp/
+.taste-skill/
+screenshots/
 
 # next.js
 /.next/
@@ -32,6 +35,11 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# sqlite database
+*.db
+*.db-journal
 
 # vercel
 .vercel
